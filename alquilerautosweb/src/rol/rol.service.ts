@@ -9,4 +9,8 @@ export class RolService {
     @InjectRepository(RolEntity)
     private _repositorio: Repository<RolEntity>,
   ) {}
+
+  buscarTodos() {
+    return this._repositorio.find();
+  }
 }

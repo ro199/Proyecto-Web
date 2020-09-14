@@ -9,4 +9,12 @@ export class RentaService {
     @InjectRepository(RentaEntity)
     private _repositorio: Repository<RentaEntity>,
   ) {}
+
+  crearUno(nuevaRenta: RentaEntity) {
+    return this._repositorio.save(nuevaRenta);
+  }
+
+  buscarTodos() {
+    return this._repositorio.find();
+  }
 }

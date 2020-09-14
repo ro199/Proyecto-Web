@@ -24,18 +24,18 @@ export class UsuarioEntity {
   @Column({
     name: 'nombre',
     type: 'varchar',
-    nullable: true,
+    nullable: false,
     length: ' 50',
   })
-  nombre?: string;
+  nombre: string;
 
   @Column({
     name: 'apellido',
     type: 'varchar',
-    nullable: true,
+    nullable: false,
     length: ' 50',
   })
-  apellido?: string;
+  apellido: string;
 
   @Column({
     name: 'direccion',

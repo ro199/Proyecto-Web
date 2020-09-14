@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 
 export class OfertaCreateDto {
-  @IsAlpha()
+  @IsString()
   @IsNotEmpty()
   nombre: string;
 

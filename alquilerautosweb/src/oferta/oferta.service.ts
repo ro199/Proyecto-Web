@@ -9,4 +9,12 @@ export class OfertaService {
     @InjectRepository(OfertaEntity)
     private _repositorio: Repository<OfertaEntity>,
   ) {}
+
+  crearUno(nuevaOferta: OfertaEntity) {
+    return this._repositorio.save(nuevaOferta);
+  }
+
+  buscarTodos() {
+    return this._repositorio.find();
+  }
 }

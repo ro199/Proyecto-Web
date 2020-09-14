@@ -9,4 +9,12 @@ export class PuntuacionService {
     @InjectRepository(PuntuacionEntity)
     private _repositorio: Repository<PuntuacionEntity>,
   ) {}
+
+  crearUno(nuevaPuntuacion: PuntuacionEntity) {
+    return this._repositorio.save(nuevaPuntuacion);
+  }
+
+  buscarTodos() {
+    return this._repositorio.find();
+  }
 }

@@ -8,4 +8,12 @@ export class AutoService {
     @InjectRepository(AutoEntity)
     private _repositorio: Repository<AutoEntity>,
   ) {}
+
+  buscarTodos() {
+    return this._repositorio.find();
+  }
+
+  crearUno(nuevoAuto: AutoEntity) {
+    return this._repositorio.save(nuevoAuto);
+  }
 }

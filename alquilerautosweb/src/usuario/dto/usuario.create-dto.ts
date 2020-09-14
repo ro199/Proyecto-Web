@@ -6,30 +6,32 @@ import {
   MaxLength,
   MinLength,
   IsEmail,
-  IsHash,, IsPhoneNumber
+  IsHash,
+  IsPhoneNumber,
 } from 'class-validator';
 
 export class UsuarioCreateDto {
-  @IsAlpha()
+  @IsString()
   @MinLength(4)
   @MaxLength(50)
   @IsNotEmpty()
   nombre: string;
 
-  @IsAlpha()
+  @IsString()
   @MinLength(3)
   @MaxLength(50)
   @IsNotEmpty()
   apellido: string;
 
-  @IsISBN('10')
+  @MinLength(10)
+  @MaxLength(10)
   @IsNotEmpty()
   @IsString()
   cedula: string;
 
   @IsNotEmpty()
   @IsString()
-  @IsPhoneNumber('+593')
+  @IsPhoneNumber('EC')
   telefono: string;
 
   @IsNotEmpty()
