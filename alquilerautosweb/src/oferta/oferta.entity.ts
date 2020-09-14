@@ -4,7 +4,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
   'id_oferta',
   'nombre',
   'descripcion',
-  'procentaje',
+  'porcentaje',
   'link_web',
   'fecha_inicio',
   'fecha_fin',

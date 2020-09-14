@@ -59,7 +59,7 @@ export class RentaEntity {
     length: '100',
     type: 'varchar',
   })
-  lugar_recogid?: string;
+  lugar_recogida?: string;
 
   @Column({
     name: 'fecha_entrega',
