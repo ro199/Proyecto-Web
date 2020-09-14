@@ -9,4 +9,12 @@ export class UsuarioService {
     @InjectRepository(UsuarioEntity)
     private _repositorio: Repository<UsuarioEntity>,
   ) {}
+
+  crearUno(nuevoUsuario: UsuarioEntity) {
+    return this._repositorio.save(nuevoUsuario);
+  }
+
+  buscarTodos() {
+    return this._repositorio.find();
+  }
 }
