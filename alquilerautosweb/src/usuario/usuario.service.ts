@@ -7,6 +7,6 @@ import { UsuarioEntity } from './usuario.entity';
 export class UsuarioService {
   constructor(
     @InjectRepository(UsuarioEntity)
-    private repositorio: Repository<UsuarioEntity>,
+    private _repositorio: Repository<UsuarioEntity>,
   ) {}
 }
