@@ -6,6 +6,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
   Post,
+  Res,
 } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
 import { UsuarioCreateDto } from './dto/usuario.create-dto';
@@ -62,5 +63,10 @@ export class UsuarioController {
         mensaje: 'No existen registros',
       });
     }
+  }
+
+  @Get('vista/usuario')
+  vistaUsuario(@Res() res) {
+    res.render('inicio', {});
   }
 }
