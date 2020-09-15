@@ -1,0 +1,177 @@
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1000px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 650px;
+  }
+}
+
+.top-nav-collapse {
+  background-color: #52489C !important;
+}
+
+.navbarother:not(.top-nav-collapse) {
+  background: #52489C !important;
+}
+
+
+
+@media (max-width: 991px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #52489C !important;
+  }
+}
+
+.rgba-gradient {
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(89, 149, 217, 0.452) 100%
+  );
+
+  background: linear-gradient(
+    to 45deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(89, 149, 217, 0.452) 100%
+  );
+}
+
+.card {
+  background-color: rgba(126, 123, 215, 0.2);
+}
+
+.md-form label {
+  color: #ffffff;
+}
+
+h6 {
+  line-height: 1.7;
+}
+/* Chart.js */
+@-webkit-keyframes chartjs-render-animation {
+  from {
+    opacity: 0.99;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes chartjs-render-animation {
+  from {
+    opacity: 0.99;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.chartjs-render-monitor {
+  -webkit-animation: chartjs-render-animation 0.001s;
+  animation: chartjs-render-animation 0.001s;
+}
+
+
+/*asdfasdf*/
+* {box-sizing: border-box}
+
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 300px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 300px;
+}
+
+.pills-purple-count .nav-item .nav-link.active {
+   background-color: #52489C;
+ }
+
+.pills-border-right-radius .nav-item .nav-link {
+  border-top-right-radius: 5em;
+  border-bottom-right-radius: 5em;
+}
+
+/*Rate*/
+
+.mdb-rating .rate-popover {
+  color: grey; }
+
+.mdb-rating .live {
+  color: black; }
+
+.mdb-rating .oneStar {
+  color: #44370f; }
+
+.mdb-rating .twoStars {
+  color: #96781e; }
+
+.mdb-rating .threeStars {
+  color: #e2b52e; }
+
+.mdb-rating .fourStars {
+  color: #f1ba12; }
+
+.mdb-rating .fiveStars {
+  color: #f3cb06; }
+
+.mdb-rating .amber-text {
+  color: #ffc107 !important;
+}
+.checked {
+   color: orange;
+}

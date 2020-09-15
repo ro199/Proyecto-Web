@@ -67,6 +67,6 @@ export class UsuarioController {
 
   @Get('vista/usuario')
   vistaUsuario(@Res() res) {
-    res.render('inicio', {});
+    res.render('inicio/inicio', {});
   }
 }
