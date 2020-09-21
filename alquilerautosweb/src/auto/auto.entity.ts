@@ -1,4 +1,8 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {Column, Entity, Index, PrimaryGeneratedColumn, OneToMany, ManyToMany} from 'typeorm';
+import {RentaEntity} from "../renta/renta.entity";
+import {PuntuacionEntity} from "../puntuacion/puntuacion.entity";
+import {RolEntity} from "../rol/rol.entity";
+import {OfertaEntity} from "../oferta/oferta.entity";
 
 @Index(['id_autos', 'nombre', 'numMotor', 'precio', 'source'])
 @Entity('autos')
@@ -42,4 +46,21 @@ export class AutoEntity {
     type: 'varchar',
   })
   source?: string;
+
+  @OneToMany(
+      type => RentaEntity,
+      renta => renta.auto
+  )
+  rentas: RentaEntity[];
+
+  @OneToMany(
+      type => PuntuacionEntity,
+      puntuacion => puntuacion.auto
+  )
+  puntuaciones: PuntuacionEntity[];
+
+  @ManyToMany(type => OfertaEntity,
+      oferta => oferta.autos)
+  ofertas: OfertaEntity[];
+
 }

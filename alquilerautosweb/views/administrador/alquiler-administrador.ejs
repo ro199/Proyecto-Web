@@ -1,0 +1,33 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+<main>
+    <div class="container-fluid mt-lg-5">
+        <div class="row">
+            <%- include('./administrador') %>
+            <div class="col-md-9 tab-content">
+                <div class="tab-pane fade in show active" role="tabpanel">
+                    <div class="container-fluid">
+                        <div class="row mb-2 justify-content-center">
+                            <div class="col-md">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" [src]="urlAutoimage">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title font-weight-bold">{{nombreAuto}}</h4>
+                                        <p class="card-text">Fecha de recogida: {{fechaRecogida}}</p>
+                                        <p class="card-text">Fecha de entrega: {{fechaEntrega}}</p>
+                                        <p class="card-text">Lugar de recogida: {{lugarRecogida}}</p>
+                                        <p class="card-text">Lugar de entrega: {{lugarEntrega}}</p>
+                                        <p class="card-text">Total a pagar: {{precioAuto}}</p>
+                                        <p class="card-text">Método de pago: {{modoPago}}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br>
+</main>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

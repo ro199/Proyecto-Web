@@ -5,13 +5,13 @@ import {
   Get,
   InternalServerErrorException,
   NotFoundException,
-  Post,
+  Post, Res,
 } from '@nestjs/common';
 import { ValidationError, validate } from 'class-validator';
 import { RentaCreateDto } from './dto/renta.create-dto';
 import { RentaService } from './renta.service';
 
-@Controller('renta')
+@Controller()
 export class RentaController {
   constructor(private readonly _rentaService: RentaService) {}
 
@@ -25,6 +25,13 @@ export class RentaController {
         mensaje: 'Error del servidor',
       });
     }
+  }
+
+  @Get('administrador/alquiler')
+  administradorAlquiler(
+      @Res() res
+  ){
+    res.render('administrador/alquiler-administrador');
   }
 
   @Post()

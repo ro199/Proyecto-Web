@@ -1,4 +1,6 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {Column, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {UsuarioEntity} from "../usuario/usuario.entity";
+import {AutoEntity} from "../auto/auto.entity";
 
 @Index([
   'id_oferta',
@@ -74,4 +76,8 @@ export class OfertaEntity {
     scale: 4,
   })
   valor?: number;
+
+  @ManyToMany(type => AutoEntity, auto => auto.ofertas)
+  @JoinTable()
+  autos: AutoEntity[];
 }

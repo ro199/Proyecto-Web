@@ -5,13 +5,13 @@ import {
   Get,
   InternalServerErrorException,
   NotFoundException,
-  Post,
+  Post, Res,
 } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
 import { PuntuacionCreateDto } from './dto/puntuacion.create-dto';
 import { PuntuacionService } from './puntuacion.service';
 
-@Controller('puntuacion')
+@Controller()
 export class PuntuacionController {
   constructor(private readonly _puntuacionService: PuntuacionService) {}
 
@@ -25,6 +25,13 @@ export class PuntuacionController {
         mensaje: 'Error en el servidor',
       });
     }
+  }
+
+  @Get('administrador/comentarios')
+  administradorComentarios(
+      @Res() res
+  ){
+    res.render('administrador/comentarios-administrador');
   }
 
   @Post()

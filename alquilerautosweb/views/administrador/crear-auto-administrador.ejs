@@ -1,0 +1,66 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+<div class="container-fluid mt-lg-5">
+    <div class="row">
+        <%- include('./administrador') %>
+        <div class="col-md-9 tab-content">
+            <form action="<%= '/administrador/catalogo/auto/crearAuto'%>" method="POST">
+                <div class="card-body border">
+                    <div class="md-form text-center" style="font-size: 30px; color: #0d0d0d">
+                        Registro Datos del Automovil
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form_nombre2">Nombre Auto</label>
+                        <input
+                                type="text"
+                                id="form_nombre2"
+                                class="black-text form-control"
+                                name="nombre"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_motor2">Placa Auto</label>
+                        <input
+                                type="text"
+                                id="form_motor2"
+                                class="black-text form-control"
+                                name="numMotor"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_precio2">Precio Auto</label>
+                        <input
+                                type="number"
+                                id="form_precio2"
+                                class="black-text form-control"
+                                name="precio"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                                type="file"
+                                accept="image/*"
+                                class="form-control black-text form-control"
+                                id="form_file2"
+                                name="source"
+                        />
+                    </div>
+                    <div class="text-center mt-4">
+                        <button
+                                type="submit"
+                                id="addnewButton"
+                                class="btn waves-effect waves-light btn-rounded"
+                                style="background-color: #52489c"
+                        >
+                            Crear
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

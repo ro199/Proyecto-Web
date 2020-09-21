@@ -1,4 +1,6 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {AutoEntity} from "../auto/auto.entity";
+import {UsuarioEntity} from "../usuario/usuario.entity";
 
 @Index(['id_puntuacion', 'numero_estrellas', 'comentario'])
 @Entity('puntuacion')
@@ -24,4 +26,16 @@ export class PuntuacionEntity {
     type: 'varchar',
   })
   comentario?: string;
+
+  @ManyToOne(
+      type => AutoEntity,
+      auto => auto.puntuaciones
+  )
+  auto: AutoEntity[];
+
+  @ManyToOne(
+      type => UsuarioEntity,
+      usuario => usuario.puntuaciones
+  )
+  usuario: UsuarioEntity[]
 }

@@ -1,0 +1,87 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+<div class="container-fluid mt-lg-5">
+    <div class="row">
+        <%- include('./administrador') %>
+        <div class="col-md-9 tab-content">
+            <form action="<%= '/administrador/catalogo/auto/crearAuto'%>" method="POST">
+                <div class="card-body border">
+                    <div class="md-form text-center" style="font-size: 30px; color: #0d0d0d">
+                        Registro Oferta
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form_nombre2">Nombre</label>
+                        <input
+                                type="text"
+                                id="form_nombre2"
+                                class="black-text form-control"
+                                name="nombre"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_motor2">Descripción</label>
+                        <textarea
+                                type="text"
+                                id="form_motor2"
+                                class="black-text form-control"
+                                name="descripcion"
+                                rows="4"
+                                cols="50"
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_precio2">Porcentaje %</label>
+                        <input
+                                type="number"
+                                id="form_precio2"
+                                class="black-text form-control"
+                                name="porcentaje"
+                                placeholder="0.00"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                                type="file"
+                                accept="image/*"
+                                class="form-control black-text form-control"
+                                id="form_file2"
+                                name="link_web"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_fecha_inicio">Fecha Inicio</label>
+                        <input
+                                type="date"
+                                id="form_fecha_inicio"
+                                class="black-text form-control"
+                                name="fecha_inicio"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_fecha_fin">Fecha Fin</label>
+                        <input
+                                type="date"
+                                id="form_fecha_fin"
+                                class="black-text form-control"
+                                name="fecha_fin"
+                        />
+                    </div>
+                    <div class="text-center mt-4">
+                        <button
+                                type="submit"
+                                id="addnewButton"
+                                class="btn waves-effect waves-light btn-rounded"
+                                style="background-color: #52489c"
+                        >
+                            Crear
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

@@ -1,0 +1,60 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+<main>
+<div class="container-fluid mt-lg-5">
+    <div class="row">
+        <%- include('./administrador') %>
+        <div class="col-md-9 tab-content">
+            <div class="tab-pane fade in show active" role="tabpanel">
+                <div class="container-fluid">
+                    <a type="button"
+                       class="btn btn-editar btn-rounded waves-effect waves-light"
+                       style="background-color: #52489c"
+                       href="/administrador/catalogo/auto/crear">
+                        <i class="fa fa-plus my-float"></i> Agregar nuevo auto
+                    </a>
+                    <br>
+                    <div class="row mb-2 justify-content-center">
+                        <% arregloAutos.forEach( (autos) => { %>
+                            <div class="col-md-6">
+                                <div class="card mb-2">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title font-weight-bold"><%= autos.nombre%></h4>
+                                        <img class="card-img-top" src="<%= autos.source%>" />
+                                        <p class="card-text">Empezar desde <%= autos.precio%>$ / por día</p>
+                                        <a
+                                                type="button"
+                                                class="btn btn-editar btn-rounded waves-effect waves-light"
+                                                style="background-color: #52489c"
+                                                href="/administrador/catalogo/auto/editar/<%= autos.id_autos%>"
+                                        >Editar</a>
+                                        <a
+                                                type="button"
+                                                class="btn btn-editar btn-rounded"
+                                                style="background-color: #52489c"
+                                                href="/administrador/oferta/crear/<%= autos.id_autos%>"
+                                        >Agregar oferta</a>
+                                        <form action="/administrador/catalogo/eliminar/<%= autos.id_autos%>" >
+                                            <a
+                                                    class="btn btn-editar btn-rounded"
+                                                    style="background-color: #52489c"
+                                                    type="submit"
+                                            >Eliminar</a>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br>
+</main>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

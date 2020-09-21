@@ -4,17 +4,17 @@ import {
   Controller,
   Get,
   InternalServerErrorException,
-  Post,
+  Post, Res,
 } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
 import { OfertaCreateDto } from './dto/oferta.create-dto';
 import { OfertaService } from './oferta.service';
 
-@Controller('oferta')
+@Controller()
 export class OfertaController {
   constructor(private readonly _ofertaService: OfertaService) {}
 
-  @Get()
+  /*@Get()
   async mostrarTodos() {
     try {
       return await this._ofertaService.buscarTodos();
@@ -24,7 +24,7 @@ export class OfertaController {
         mensaje: 'Error en el sevidor',
       });
     }
-  }
+  }*/
 
   @Post()
   async crearUno(@Body() parametrosCuerpo) {
@@ -53,5 +53,24 @@ export class OfertaController {
         mensaje: 'Error en el servidor',
       });
     }
+  }
+
+  @Get('ofertas')
+  oferta(@Res() res){
+    res.render('ofertas/oferta')
+  }
+
+  @Get('administrador/oferta')
+  administradorOferta(
+      @Res() res
+  ){
+    res.render('administrador/oferta-administrador');
+  }
+
+  @Get('administrador/oferta/crear/:id')
+  administradorCrearAuto(
+      @Res() res
+  ){
+    res.render('administrador/crear-oferta-administrador')
   }
 }

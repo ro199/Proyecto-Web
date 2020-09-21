@@ -1,4 +1,7 @@
-import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
+import {Column, Entity, Index, ManyToMany, OneToMany, PrimaryColumn} from 'typeorm';
+import {PuntuacionEntity} from "../puntuacion/puntuacion.entity";
+import {RentaEntity} from "../renta/renta.entity";
+import {RolEntity} from "../rol/rol.entity";
 
 @Index([
   'cedula',
@@ -68,4 +71,21 @@ export class UsuarioEntity {
     length: '50',
   })
   password: string;
+
+  @OneToMany(
+      type => PuntuacionEntity,
+      puntuacion => puntuacion.usuario
+  )
+  puntuaciones: PuntuacionEntity[]
+
+  @OneToMany(
+      type => RentaEntity,
+      renta => renta.usuario
+  )
+  rentas: RentaEntity[]
+
+  @ManyToMany(type => RolEntity,
+          rol => rol.usuarios)
+  roles: RolEntity[];
+
 }

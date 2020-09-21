@@ -1,4 +1,5 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {Column, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {UsuarioEntity} from "../usuario/usuario.entity";
 
 @Index(['codigo', 'usuario'])
 @Entity('rol')
@@ -17,4 +18,9 @@ export class RolEntity {
     nullable: true,
   })
   usuario?: string;
+
+  @ManyToMany(type => UsuarioEntity, usuario => usuario.roles)
+  @JoinTable()
+  usuarios: UsuarioEntity[];
+
 }

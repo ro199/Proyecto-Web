@@ -16,4 +16,17 @@ export class AutoService {
   crearUno(nuevoAuto: AutoEntity) {
     return this._repositorio.save(nuevoAuto);
   }
+
+  eliminarUno(id: number){
+    return this._repositorio.delete(id);
+  }
+
+  editarUno(autoEditado: AutoEntity){
+    return this._repositorio.save(autoEditado);
+  }
+
+  buscarUno(id: number){
+    return this._repositorio.findOne(id);
+  }
+
 }

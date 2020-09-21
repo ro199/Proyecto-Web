@@ -1,0 +1,35 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+
+<div class="container pt-3 pb-lg-5">
+    <div class="row pt-lg-5 justify-content-md-center">
+        <div class="card col-md-5 border">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Iniciar Sesión</h4>
+            </div>
+            <form (ngSubmit)="onLogIn()">
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="defaultForm-email" class="form-control" formControlName="email">
+                        <label data-error="wrong" data-success="right" for="defaultForm-email" style="color: black">Email</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="defaultForm-pass" class="form-control" formControlName="password">
+                        <label for="defaultForm-pass" style="color: black">Contraseña</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn" style="background-color: #52489C;">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+
+<%- include('../compartido/footer/footer-component') %>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
