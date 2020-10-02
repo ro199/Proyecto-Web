@@ -193,7 +193,7 @@ export class OfertaController {
     }
   }
 
-  @Post('eliminar-oferta:id')
+  @Post('administrador/oferta/eliminar-oferta/:id')
   async eliminarOferta(
       @Res() res,
       @Param() parametrosRuta

@@ -68,11 +68,13 @@
                                         <h5 class="card-title font-weight-bold">Para el Auto: <%= autos[0].nombre %></h5>
                                         <p class="card-text"><%= ofertas.descripcion%></p>
                                         <p class="card-text">Empezar desde <%= ofertas.valor%>$ / por día</p>
-                                        <a
-                                                class="btn btn-small btn-alquilar btn-rounded waves-effect waves-light"
-                                                style="background-color: #52489c"
-                                                href="/eliminar-oferta/<%= ofertas.id_oferta%>"
-                                        >Eliminar</a>
+                                        <form action="/administrador/oferta/eliminar-oferta/<%= ofertas.id_oferta %>" method="post" >
+                                            <button
+                                                    class="btn btn-editar btn-rounded"
+                                                    style="background-color: #52489c"
+                                                    type="submit"
+                                            >Eliminar</button>
+                                        </form>
                                         <br /><br />
                                         <a type="button" class="btn-floating btn-small btn-fb"
                                         ><i class="fab fa-facebook-f"></i
