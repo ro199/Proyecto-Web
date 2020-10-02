@@ -10,7 +10,7 @@ export class PuntuacionService {
     private _repositorio: Repository<PuntuacionEntity>,
   ) {}
 
-  crearUno(nuevaPuntuacion: PuntuacionEntity) {
+  crearUno(nuevaPuntuacion: any) {
     return this._repositorio.save(nuevaPuntuacion);
   }
 

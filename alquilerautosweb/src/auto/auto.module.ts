@@ -7,6 +7,11 @@ import { AutoService } from './auto.service';
 @Module({
   imports: [TypeOrmModule.forFeature([AutoEntity], 'default')],
   controllers: [AutoController],
-  providers: [AutoService],
+  providers: [
+      AutoService
+  ],
+  exports:[
+      AutoService
+  ]
 })
 export class AutoModule {}

@@ -1,7 +1,6 @@
 import {Column, Entity, Index, PrimaryGeneratedColumn, OneToMany, ManyToMany} from 'typeorm';
 import {RentaEntity} from "../renta/renta.entity";
 import {PuntuacionEntity} from "../puntuacion/puntuacion.entity";
-import {RolEntity} from "../rol/rol.entity";
 import {OfertaEntity} from "../oferta/oferta.entity";
 
 @Index(['id_autos', 'nombre', 'numMotor', 'precio', 'source'])
@@ -59,7 +58,7 @@ export class AutoEntity {
   )
   puntuaciones: PuntuacionEntity[];
 
-  @ManyToMany(type => OfertaEntity,
+  @OneToMany(type => OfertaEntity,
       oferta => oferta.autos)
   ofertas: OfertaEntity[];
 

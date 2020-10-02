@@ -14,28 +14,29 @@ export class PuntuacionEntity {
 
   @Column({
     name: 'numero_estrellas',
-    nullable: true,
+    nullable: false,
     type: 'int',
   })
-  numero_estrellas?: number;
+  numero_estrellas: number;
 
   @Column({
     name: 'comentario',
-    nullable: true,
+    nullable: false,
     length: '200',
     type: 'varchar',
   })
-  comentario?: string;
+  comentario: string;
 
   @ManyToOne(
       type => AutoEntity,
       auto => auto.puntuaciones
   )
-  auto: AutoEntity[];
+  auto: AutoEntity;
 
   @ManyToOne(
       type => UsuarioEntity,
-      usuario => usuario.puntuaciones
+      usuario => usuario.puntuaciones,
+      { eager: true }
   )
-  usuario: UsuarioEntity[]
+  usuario: UsuarioEntity;
 }

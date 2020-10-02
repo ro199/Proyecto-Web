@@ -10,7 +10,7 @@ export class RentaService {
     private _repositorio: Repository<RentaEntity>,
   ) {}
 
-  crearUno(nuevaRenta: RentaEntity) {
+  crearUno(nuevaRenta: any) {
     return this._repositorio.save(nuevaRenta);
   }
 

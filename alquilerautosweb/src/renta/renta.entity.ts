@@ -4,7 +4,6 @@ import {UsuarioEntity} from "../usuario/usuario.entity";
 
 @Index([
   'id_renta',
-  'tipo_auto',
   'total_pagar',
   'metodo_pago',
   'lugar_entrega',
@@ -23,21 +22,13 @@ export class RentaEntity {
   id_renta: number;
 
   @Column({
-    name: 'tipo_auto',
-    length: '50',
-    type: 'varchar',
-    nullable: true,
-  })
-  tipo_auto?: string;
-
-  @Column({
     name: 'total_pagar',
     type: 'decimal',
     precision: 10,
     scale: 4,
     nullable: true,
   })
-  total_pagar?: number;
+  total_pagar: number;
 
   @Column({
     name: 'metodo_pago',
@@ -89,12 +80,12 @@ export class RentaEntity {
       type => AutoEntity,
       auto => auto.rentas
   )
-  auto: AutoEntity[]
+  auto: AutoEntity;
 
   @ManyToOne(
       type => UsuarioEntity,
       usuario => usuario.rentas
   )
-  usuario: UsuarioEntity[];
+  usuario: UsuarioEntity;
 
 }

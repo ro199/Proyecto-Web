@@ -1,4 +1,4 @@
-import {Column, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import {UsuarioEntity} from "../usuario/usuario.entity";
 import {AutoEntity} from "../auto/auto.entity";
 
@@ -77,7 +77,6 @@ export class OfertaEntity {
   })
   valor?: number;
 
-  @ManyToMany(type => AutoEntity, auto => auto.ofertas)
-  @JoinTable()
-  autos: AutoEntity[];
+  @ManyToOne(type => AutoEntity, auto => auto.ofertas, { eager: true })
+  autos: AutoEntity;
 }

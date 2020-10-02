@@ -10,11 +10,15 @@ export class OfertaService {
     private _repositorio: Repository<OfertaEntity>,
   ) {}
 
-  crearUno(nuevaOferta: OfertaEntity) {
+  crearUno(nuevaOferta: any) {
     return this._repositorio.save(nuevaOferta);
   }
 
   buscarTodos() {
     return this._repositorio.find();
+  }
+
+  eliminarUno(id: number){
+    return this._repositorio.delete(id);
   }
 }

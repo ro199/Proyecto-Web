@@ -146,32 +146,62 @@ h6 {
   border-bottom-right-radius: 5em;
 }
 
-/*Rate*/
-
-.mdb-rating .rate-popover {
-  color: grey; }
-
-.mdb-rating .live {
-  color: black; }
-
-.mdb-rating .oneStar {
-  color: #44370f; }
-
-.mdb-rating .twoStars {
-  color: #96781e; }
-
-.mdb-rating .threeStars {
-  color: #e2b52e; }
-
-.mdb-rating .fourStars {
-  color: #f1ba12; }
-
-.mdb-rating .fiveStars {
-  color: #f3cb06; }
-
-.mdb-rating .amber-text {
-  color: #ffc107 !important;
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center
 }
-.checked {
-   color: orange;
+
+.rating>input {
+  display: none
+}
+
+.rating>label {
+  position: relative;
+  width: 1em;
+  font-size: 6vw;
+  color: #FFD600;
+  cursor: pointer
+}
+
+.rating>label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+  opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+  opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+  opacity: 0.4
+}
+
+h1,
+p {
+  text-align: center
+}
+
+h1 {
+  margin-top: 150px
+}
+
+p {
+  font-size: 1.2rem
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 14px
+  }
+
+  p {
+    font-size: 12px
+  }
 }

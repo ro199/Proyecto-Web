@@ -8,6 +8,8 @@ import {
   IsUrl,
 } from 'class-validator';
 
+import { Type } from 'class-transformer';
+
 export class OfertaCreateDto {
   @IsString()
   @IsNotEmpty()
@@ -18,7 +20,7 @@ export class OfertaCreateDto {
   descripcion: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @Type(() => Number)
   porcentaje: number;
 
   @IsNotEmpty()
@@ -28,15 +30,10 @@ export class OfertaCreateDto {
 
   @IsNotEmpty()
   @IsString()
-  @IsDate()
   fecha_inicio: string;
 
   @IsNotEmpty()
   @IsString()
-  @IsDate()
   fecha_fin: string;
 
-  @IsNotEmpty()
-  @IsDecimal()
-  valor: number;
 }

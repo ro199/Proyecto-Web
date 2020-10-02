@@ -1,32 +1,80 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component') %>
-<%- include('../compartido/menu/menu-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+
 <div class="container-fluid mt-lg-5">
     <div class="row mb-2 justify-content-center">
-        <div *ngFor="let autos of arregloAutos">
-            <div class="col-md">
-                <div class="card mb-2">
-                    <img class="card-img-top" [src]="urlAutoimage" />
-                    <div class="card-body text-center">
-                        <h4 class="card-title font-weight-bold">{{ nombreAuto }}</h4>
-                        <p class="card-text">Empezar desde {{ precioAuto }}$ / por día</p>
-                        <a type="button" class="btn btn-small btn-alquilar btn-rounded"
-                           target="#modalRentCar"
-                           style="background-color: #52489c"
-                        >Alquilar</a>
-                        <br /><br />
-                        <a type="button" class="btn-floating btn-small btn-fb"
-                        ><i class="fab fa-facebook-f"></i
-                            ></a>
-                        <a type="button" class="btn-floating btn-small btn-tw"
-                        ><i class="fab fa-twitter"></i
-                            ></a>
-                        <a type="button" class="btn-floating btn-small btn-dribbble"
-                        ><i class="fab fa-instagram"></i
-                            ></a>
-                    </div>
+        <% arregloOfertas.forEach( (ofertas) => { %>
+            <div class="card mb-2">
+                <img class="img-fluid" src="/uploads/<%= ofertas.link_web%>" />
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold"><%= ofertas.nombre%>"</h4>
+                    <h5 class="card-title font-weight-bold">Para el Auto: <%= autos[0].nombre %></h5>
+                    <p class="card-text"><%= ofertas.descripcion%></p>
+                    <p class="card-text">Empezar desde <%= ofertas.valor%>$ / por día</p>
+                    <a
+                            class="btn btn-small btn-alquilar btn-rounded waves-effect waves-light"
+                            style="background-color: #52489c"
+                            href="/rentar-auto/<%= autos[0].id_autos%>"
+                    >Alquilar</a>
+                    <br /><br />
+                    <a type="button" class="btn-floating btn-small btn-fb"
+                    ><i class="fab fa-facebook-f"></i
+                        ></a>
+                    <a type="button" class="btn-floating btn-small btn-tw"
+                    ><i class="fab fa-twitter"></i
+                        ></a>
+                    <a type="button" class="btn-floating btn-small btn-dribbble"
+                    ><i class="fab fa-instagram"></i
+                        ></a>
                 </div>
             </div>
-        </div>
+        <% }) %>
     </div>
 </div>
 

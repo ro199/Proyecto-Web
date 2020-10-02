@@ -5,8 +5,8 @@ import {
   Get,
   InternalServerErrorException,
   NotFoundException, Param,
-  Post, Query,
-  Res,
+  Post, Query, Req,
+  Res, Session,
 } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
 import { UsuarioCreateDto } from './dto/usuario.create-dto';
@@ -15,9 +15,11 @@ var md5 = require('md5');
 
 @Controller()
 export class UsuarioController {
-  constructor(private readonly _usuarioService: UsuarioService) {}
+  constructor(
+      private readonly _usuarioService: UsuarioService
+  ) {}
 
-  @Get()
+  @Get('pp')
   async mostrarTodos() {
     try {
       return await this._usuarioService.buscarTodos();
@@ -29,7 +31,7 @@ export class UsuarioController {
     }
   }
 
-  @Post('registro/usuario')
+  @Post('registro')
   async registroVistaUsuario(
       @Body() parametrosCuerpo,
       @Res() res,
@@ -49,6 +51,7 @@ export class UsuarioController {
         console.error('Errores: ', errores);
         res.redirect('/registro?error=Error validando datos');
       } else {
+        parametrosCuerpo.roles = "Cliente";
         respuesta = await this._usuarioService.crearUno(parametrosCuerpo);
       }
     } catch (e) {
@@ -69,46 +72,230 @@ export class UsuarioController {
   }
 
   @Get('inicio')
-  inicio(@Res() res) {
-    res.render('inicio/inicio');
+  inicio(
+      @Res() res,
+      @Session() session
+  ) {
+    const estaLogeado = session.usuario;
+    if (estaLogeado){
+      return res.render('inicio/inicio',
+          {
+            roles: session.usuario.roles
+          }
+      );
+    }else {
+      return res.render('inicio/inicio',
+          {
+            roles: []
+          }
+      );
+    }
+
   }
 
   @Get('nosotros')
-  nosotros(@Res() res) {
-    res.render('nosotros/nosotros');
+  nosotros(
+      @Res() res,
+      @Session() session
+  ) {
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      return res.render('nosotros/nosotros',
+          {
+            roles: session.usuario.roles
+          }
+      );
+    }else {
+      return res.render('nosotros/nosotros',
+          {
+            roles: []
+          }
+      );
+    }
+
   }
 
   @Get('agencias')
-  agencias(@Res() res) {
-    res.render('agencias/agencias');
+  agencias(
+      @Res() res,
+      @Session() session
+  ) {
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      return res.render('agencias/agencias',
+        {
+          roles: session.usuario.roles
+        }
+      );
+    }else{
+      return res.render('agencias/agencias',
+          {
+            roles: []
+          }
+      );
+    }
+
   }
 
   @Get('administrador/perfil')
   administradorPerfil(
-      @Res() res
+      @Res() res,
+      @Session() session
   ){
-    res.render('administrador/perfil-administrador');
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      return res.render(
+          'administrador/perfil-administrador',
+          {
+            usuario: session.usuario.usuario,
+            roles: session.usuario.roles
+          }
+      );
+    }else{
+      return res.redirect('/login');
+    }
+
   }
 
   @Get('registro')
-  registroUsuario(
-      @Res() res
+  async registroUsuario(
+      @Res() res,
+      @Session() session
   ){
-    res.render('cliente/registro');
+      const estaLogeado = session.usuario;
+      if(estaLogeado){
+        return res.render(
+            'cliente/registro',
+            {
+              roles: session.usuario.roles
+            }
+        );
+      }else{
+        return res.render(
+            'cliente/registro',
+            {
+              roles: []
+            }
+        );
+      }
+
   }
 
   @Get('login')
   loginUsuario(
-      @Res() res
+      @Res() res,
+      @Session() session
   ){
-    res.render('cliente/login');
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      return res.render(
+          'cliente/login',
+          {
+            usuario: session.usuario.roles,
+            roles: session.usuario.roles
+          }
+      );
+    }else{
+      return res.render(
+          'cliente/login',
+          {
+            usuario: [],
+            roles: []
+          }
+      );
+    }
   }
+
+  @Post('login')
+  async loginVistaUsuario(
+      @Res() res,
+      @Body() parametrosCuerpo,
+      @Session() session,
+  ){
+    if (parametrosCuerpo.email === 'admin@hotmail.com' && parametrosCuerpo.password === '1234') {
+      session.usuario = {
+        usuario: 'Administrador',
+        userId: 0,
+        roles: ['Administrador'],
+      };
+      res.redirect(
+          '/administrador/perfil?mensaje=Bienvenido Administrador',
+      );
+    }
+    else{
+      let consultaServicio;
+      consultaServicio = [
+        {
+          correo_electronico: parametrosCuerpo.email,
+        }
+      ];
+      let usuario;
+      try{
+        usuario = await this._usuarioService.buscarUno(consultaServicio);
+      }
+      catch (e) {
+        res.redirect(
+            '/login?error=Error del Servidor',
+        );
+      }
+      if (usuario){
+        console.log(usuario.correo_electronico);
+        if (usuario.password === md5(parametrosCuerpo.password)) {
+          console.log(usuario.password + "/ " + parametrosCuerpo.password);
+          session.usuario = undefined;
+          session.usuario = {
+            usuario: usuario.correo_electronico,
+            userId: usuario.cedula,
+            roles: ['Cliente'],
+          };
+          res.redirect('/perfil');
+        }
+        else{
+          res.redirect(
+              '/login?error=Credenciales Incorrectas',
+          );
+        }
+      }
+      else{
+        res.redirect(
+            '/login?error=Credenciales Incorrectas',
+        );
+      }
+
+    }
+    throw new BadRequestException('No envia credenciales');
+
+  }
+
 
   @Get('perfil')
   perfilUsuario(
-      @Res() res
+      @Res() res,
+      @Session() session,
   ){
-    res.render('cliente/perfil');
+    const estaLogedo = session.usuario;
+    if(estaLogedo){
+      res.render(
+          'cliente/perfil',
+          {
+            usuario: session.usuario.usuario,
+            roles: session.usuario.roles
+          }
+      );
+    }else{
+      return res.redirect('/login');
+    }
+  }
+
+  @Get('logout')
+  logout(
+      @Session() session,
+      @Res() res,
+      @Req() req
+  ) {
+    session.usuario = undefined;
+    req.session.destroy();
+    res.redirect('/inicio');
   }
 
 }

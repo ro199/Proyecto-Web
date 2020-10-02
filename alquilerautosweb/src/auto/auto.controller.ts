@@ -5,13 +5,19 @@ import {
   Get,
   InternalServerErrorException,
   NotFoundException, Param,
-  Post, Query, Res,
+  Post, Query, Res, Session, UploadedFile, UploadedFiles, UseInterceptors,
 } from '@nestjs/common';
 import { validate, ValidationError } from 'class-validator';
 import { AutoService } from './auto.service';
 import { AutoCreateDto } from './dto/auto.create-dto';
 import {AutoUpdateDto} from "./dto/auto.update-dto";
 import {AutoEntity} from "./auto.entity";
+import {FileInterceptor} from "@nestjs/platform-express";
+import {diskStorage} from "multer";
+import { v4 as uuidv4 } from "uuid"
+import path from "path";
+import {of} from "rxjs";
+import e from "express";
 
 @Controller()
 export class AutoController {
@@ -19,50 +25,115 @@ export class AutoController {
   constructor(private readonly _autoService: AutoService) {}
 
   @Get('catalogo')
-  faq(@Res() res){
-    console.log("entre al autos catalogo")
-    res.render('catalogo/catalogo')
-  }
-
-  @Get('administrador/catalogo')
-  async administradorCatalogo(
+  async catalogo(
       @Res() res,
+      @Session() session
   ){
+    const estaLogeado = session.usuario;
     let resultadoEncontrado;
     try{
       resultadoEncontrado = await this._autoService.buscarTodos();
     }catch (e) {
       console.error(e);
       throw new InternalServerErrorException({
-        mensaje: 'Error econtrando usuarios'
+        mensaje: 'Error econtrando Autos'
       })
     }
     if(resultadoEncontrado){
-      res.render(
-          'administrador/catalogo-administrador',
-          {
-            arregloAutos: resultadoEncontrado,
-          }
-      );
+      if(estaLogeado){
+        return res.render(
+            'catalogo/catalogo',
+            {
+              arregloAutos: resultadoEncontrado,
+              roles: session.usuario.roles
+            }
+        );
+      }else{
+        return res.render(
+            'catalogo/catalogo',
+            {
+              arregloAutos: resultadoEncontrado,
+              roles: []
+            }
+        );
+      }
+
     }else{
-      throw new NotFoundException('No se enontraron usuarios')
+      throw new NotFoundException('No se enontraron Autos')
     }
+
+  }
+
+  @Get('administrador/catalogo')
+  async administradorCatalogo(
+      @Res() res,
+      @Session() session
+  ){
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      let resultadoEncontrado;
+      try{
+        resultadoEncontrado = await this._autoService.buscarTodos();
+      }catch (e) {
+        console.error(e);
+        throw new InternalServerErrorException({
+          mensaje: 'Error econtrando usuarios'
+        })
+      }
+      if(resultadoEncontrado){
+        res.render(
+            'administrador/catalogo-administrador',
+            {
+              arregloAutos: resultadoEncontrado,
+              roles: session.usuario.roles
+            }
+        );
+      }else{
+        throw new NotFoundException('No se enontraron usuarios')
+      }
+    }else{
+      res.redirect('/login');
+    }
+
 
   }
 
   @Get('administrador/catalogo/auto/crear')
   administradorCrearAuto(
-      @Res() res
+      @Res() res,
+      @Session() session
   ){
-    res.render('administrador/crear-auto-administrador')
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      return res.render(
+          'administrador/crear-auto-administrador',
+          {
+            roles: session.usuario.roles
+          }
+      );
+    }else{
+      return res.redirect('/login')
+    }
   }
 
-  @Post('administrador/catalogo/auto/crearAuto')
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('source', {
+    storage: diskStorage({
+      destination: './publico/uploads',
+      filename(req: e.Request, file: Express.Multer.File, callback: (error: (Error | null), filename: string) => void) {
+        callback(null, file.fieldname + '_' + Date.now() + '.jpg');
+      }
+    })
+  }))
+  uploadFile(@UploadedFile() file) {
+    console.log(file.filename);
+  }
+
+  @Post('administrador/catalogo/auto/crear')
   async AdministradorCrearDesdeVistaAuto(
       @Body() parametrosCuerpo,
       @Res() res,
   ) {
-
     const autoValidado = new AutoCreateDto();
     autoValidado.nombre = parametrosCuerpo.nombre;
     autoValidado.numMotor = parametrosCuerpo.numMotor;
@@ -97,29 +168,37 @@ export class AutoController {
       @Res() res,
       @Query() parametrosConsulta,
       @Param() parametrosRuta,
+      @Session() session
   ) {
-    const id = Number(parametrosRuta.id);
-    let autoEncontrado;
-    try{
-      autoEncontrado = await this._autoService.buscarUno(id);
-    }catch (e) {
-      console.error('Error del servidor: ', e);
-      return res.redirect('/administrador/catalogo?error=Error buscando usuario');
-    }
-    if(autoEncontrado){
-      res.render(
-          'administrador/actualizar-auto-administrador',
-          {
-            error: parametrosConsulta.error,
-            auto: autoEncontrado,
-          }
-      )
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      const id = Number(parametrosRuta.id);
+      let autoEncontrado;
+      try{
+        autoEncontrado = await this._autoService.buscarUno(id);
+      }catch (e) {
+        console.error('Error del servidor: ', e);
+        return res.redirect('/administrador/catalogo?error=Error buscando automovil');
+      }
+      if(autoEncontrado){
+        res.render(
+            'administrador/actualizar-auto-administrador',
+            {
+              error: parametrosConsulta.error,
+              auto: autoEncontrado,
+              roles: session.usuario.roles
+            }
+        )
+      }else{
+        return res.redirect('/administrador/catalogo?error=Auto no encontrado')
+      }
     }else{
-      return res.redirect('/administrador/catalogo?error=Auto no encontrado')
+      return res.redirect('/login')
     }
+
   }
 
-  @Post('administrador/catalogo/auto/editar/editarVista/:id')
+  @Post('administrador/catalogo/auto/editar/:id')
   async AdministradorActualizarDesdeVistaAuto(
       @Param() parametrosRuta,
       @Body() parametrosCuerpo,
@@ -176,6 +255,41 @@ export class AutoController {
       console.error(e);
       return res.redirect('/administrador/catalogo?error=Error eliminando el auto');
     }
+  }
+
+  @Get('rentar-auto/:id')
+  async alquilarAuto(
+      @Res() res,
+      @Query() parametrosConsulta,
+      @Param() parametrosRuta,
+      @Session() session
+  ) {
+    const estaLogeado = session.usuario;
+    if(estaLogeado){
+      const id = Number(parametrosRuta.id);
+      let autoEncontrado;
+      try{
+        autoEncontrado = await this._autoService.buscarUno(id);
+      }catch (e) {
+        console.error('Error del servidor: ', e);
+        return res.redirect('/catalogo?error=Error buscando automovil');
+      }
+      if(autoEncontrado){
+        res.render(
+            'cliente/alquilar-auto',
+            {
+              error: parametrosConsulta.error,
+              auto: autoEncontrado,
+              roles: session.usuario.roles
+            }
+        )
+      }else{
+        return res.redirect('/catalogo?error=Auto no encontrado')
+      }
+    }else{
+      return res.redirect('/login')
+    }
+
   }
 
 }

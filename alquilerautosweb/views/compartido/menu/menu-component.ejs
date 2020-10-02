@@ -1,55 +1,26 @@
 <%- include('../../compartido/estilos-generales/estilos-generales-component')%>
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
-  <div class="container">
-    <a class="navbar-brand font-weight-bold" href="/inicio">
-      <strong>LA FLOTA</strong>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
-            aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/inicio" >Inicio</a>
+          <a class="nav-link waves-effect waves-light active" href="/inicio" >Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/catalogo" >Cátalogo de
+          <a class="nav-link waves-effect waves-light active" href="/catalogo" >Cátalogo de
             Autos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/agencias" routerLinkActive="active">Red de
+          <a class="nav-link waves-effect waves-light active" href="/agencias" >Red de
             Agencias</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/ofertas" routerLinkActive="active">Ofertas</a>
+          <a class="nav-link waves-effect waves-light active" href="/ofertas" >Ofertas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/nosotros" routerLinkActive="active">Sobre
+          <a class="nav-link waves-effect waves-light active" href="/nosotros" >Sobre
             Nosotros</a>
         </li>
       </ul>
-      <div class="md-form my-0" >
-        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión
-        </a>
-      </div>
 
-      <div class="md-form my-0" >
-        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse
-        </a>
-      </div>
-      <!--<div class="md-form my-0" *ngIf="(user$ | async)">
-        <button class="btn btn-outline-white mr-sm-2 btn-rounded" id="Cuenta" routerLink="/administrador">Cuenta
-        </button>
-      </div>
-      <div class="md-form my-0" *ngIf="(user$ | async)">
-        <button class="btn btn-outline-white mr-sm-2 btn-rounded" id="cerrarsesion" (click)="logOut()">Cerrar Sesión
-        </button>
-      </div>
--->
-    </div>
-  </div>
-</nav>
-<br><br><br>
 <%- include('../../compartido/funcionalidad-general/funcionalidad-general-component')%>

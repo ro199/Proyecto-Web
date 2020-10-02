@@ -17,4 +17,18 @@ export class UsuarioService {
   buscarTodos() {
     return this._repositorio.find();
   }
+
+  buscarUno(
+      where: any = {}
+  ){
+    try {
+      return this._repositorio.findOne({ where: where });
+    }
+    catch{
+      return undefined;
+    }
+
+  }
+
+
 }

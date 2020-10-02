@@ -1,15 +1,12 @@
 import {
-  IsInt,
-  IsNotEmpty,
-  IsPositive,
+  IsNotEmpty, IsNumber,
   IsString,
   MaxLength,
 } from 'class-validator';
 
 export class PuntuacionCreateDto {
-  @IsInt()
+  @IsNumber()
   @IsNotEmpty()
-  @IsPositive()
   numero_estrellas: number;
 
   @IsString()

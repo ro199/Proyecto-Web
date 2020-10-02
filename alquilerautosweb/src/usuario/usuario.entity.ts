@@ -1,7 +1,6 @@
 import {Column, Entity, Index, ManyToMany, OneToMany, PrimaryColumn} from 'typeorm';
 import {PuntuacionEntity} from "../puntuacion/puntuacion.entity";
 import {RentaEntity} from "../renta/renta.entity";
-import {RolEntity} from "../rol/rol.entity";
 
 @Index([
   'cedula',
@@ -27,18 +26,18 @@ export class UsuarioEntity {
   @Column({
     name: 'nombre',
     type: 'varchar',
-    nullable: false,
+    nullable: true,
     length: ' 50',
   })
-  nombre: string;
+  nombre?: string;
 
   @Column({
     name: 'apellido',
     type: 'varchar',
-    nullable: false,
+    nullable: true,
     length: ' 50',
   })
-  apellido: string;
+  apellido?: string;
 
   @Column({
     name: 'direccion',
@@ -72,6 +71,14 @@ export class UsuarioEntity {
   })
   password: string;
 
+  @Column({
+    name: 'roles',
+    type: "varchar",
+    nullable: true,
+    length: '100',
+  })
+  roles?: string;
+
   @OneToMany(
       type => PuntuacionEntity,
       puntuacion => puntuacion.usuario
@@ -83,9 +90,5 @@ export class UsuarioEntity {
       renta => renta.usuario
   )
   rentas: RentaEntity[]
-
-  @ManyToMany(type => RolEntity,
-          rol => rol.usuarios)
-  roles: RolEntity[];
 
 }

@@ -1,5 +1,51 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component') %>
-<%- include('../compartido/menu/menu-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
 
 <div class="container-fluid">
     <div class="row pt-lg-5 justify-content-md-center">
@@ -7,7 +53,7 @@
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Registro</h4>
             </div>
-            <form (submit)="onRegister()" >
+            <form action="/registro" method="post">
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
@@ -15,11 +61,11 @@
                                 type="text"
                                 id="orangeForm-name"
                                 class="form-control validate"
-                                formControlName="nombre"
+                                name="nombre"
+                                required
                         />
                         <label data-error="wrong" data-success="right" for="orangeForm-name" style="color: black"
-                        >Nombre</label
-                        >
+                        >Nombre</label>
                     </div>
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
@@ -27,15 +73,15 @@
                                 type="text"
                                 id="orangeForm-apellido"
                                 class="form-control validate"
-                                formControlName="apellido"
+                                name="apellido"
+                                required
                         />
                         <label
                                 data-error="wrong"
                                 data-success="right"
                                 for="orangeForm-apellido"
                                 style="color: black"
-                        >Apellido</label
-                        >
+                        >Apellido</label>
                     </div>
                     <div class="md-form mb-5">
                         <i class="fas fa-phone prefix grey-text"></i>
@@ -43,15 +89,15 @@
                                 type="tel"
                                 id="orangeForm-telefono"
                                 class="form-control validate"
-                                formControlName="telefono"
+                                name="telefono"
+                                required
                         />
                         <label
                                 data-error="wrong"
                                 data-success="right"
                                 for="orangeForm-telefono"
                                 style="color: black"
-                        >Teléfono</label
-                        >
+                        >Teléfono</label>
                     </div>
                     <div class="md-form mb-5">
                         <i class="fas fa-id-card prefix grey-text"></i>
@@ -59,15 +105,15 @@
                                 type="text"
                                 id="orangeForm-cedula"
                                 class="form-control validate"
-                                formControlName="cedula"
+                                name="cedula"
+                                required
                         />
                         <label
                                 data-error="wrong"
                                 data-success="right"
                                 for="orangeForm-cedula"
                                 style="color: black"
-                        >Cédula</label
-                        >
+                        >Cédula</label>
                     </div>
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
@@ -75,7 +121,8 @@
                                 type="text"
                                 id="orangeForm-direction"
                                 class="form-control validate"
-                                formControlName="direccion"
+                                name="direccion"
+                                required
                         />
                         <label
                                 data-error="wrong"
@@ -91,28 +138,27 @@
                                 type="email"
                                 id="orangeForm-email"
                                 class="form-control validate"
-                                formControlName="email"
+                                name="correo_electronico"
+                                required
                         />
                         <label
                                 data-error="wrong"
                                 data-success="right"
                                 for="orangeForm-email"
                                 style="color: black"
-                        >Email</label
-                        >
+                        >Email</label>
                     </div>
                     <div class="md-form mb-4">
                         <i class="fas fa-lock prefix grey-text"></i>
-
                         <input
                                 type="password"
                                 id="orangeForm-pass"
                                 class="form-control validate"
-                                formControlName="password"
+                                name="password"
+                                required
                         />
                         <label data-error="wrong" data-success="right" for="orangeForm-pass" style="color: black"
-                        >Contraseña</label
-                        >
+                        >Contraseña</label>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
