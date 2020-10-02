@@ -1,0 +1,82 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+
+
+<div class="container marketing mt-lg-5">
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Misión</h2>
+            <p class="lead" align="justify">"Garantizaremos una experiencia de alquiler libre de complicaciones,
+                ya que proporcionaremos servicios superiores que satisfagan las necesidades
+                individuales de nuestros clientes además de que siempre aplicaremos nuestro lema “Nos esforzamos
+                más” con sabiduría, dedicación y pasión por la excelencia."</p>
+        </div>
+        <div class="col-md-5">
+            <img src="/resources/nosotros1.jpg" class="img-fluid">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Visión</h2>
+            <p class="lead" align="justify">"Ser lideres en el mercado de renta y servicio de autos.
+                Dirigir a nuestra industria al defender la excelencia del servicio
+                y forjando una lealtad incomparable de parte de los clientes." </p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img src="/resources/nosotros2.jpg" class="img-fluid" style="height: 300px; width: 500px;">
+        </div>
+    </div>
+</div>
+    <br>
+<%- include('../compartido/footer/footer-component') %>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

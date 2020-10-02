@@ -1,0 +1,142 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+<div class="container-fluid mt-lg-5">
+    <div class="row">
+        <%- include('./administrador') %>
+        <div class="col-md-9 tab-content">
+            <form action="/administrador/oferta/crear/<%= idAuto %>" method="POST">
+                <div class="card-body border">
+                    <div class="md-form text-center" style="font-size: 30px; color: #0d0d0d">
+                        Registro Oferta
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form_nombre2">Nombre</label>
+                        <input
+                                type="text"
+                                id="form_nombre2"
+                                class="black-text form-control"
+                                name="nombre"
+                                required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_motor2">Descripción</label>
+                        <textarea
+                                type="text"
+                                id="form_motor2"
+                                class="black-text form-control"
+                                name="descripcion"
+                                rows="4"
+                                cols="50"
+                                required
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="form_precio2">Porcentaje %</label>
+                        <input
+                                type="number"
+                                id="form_precio2"
+                                class="black-text form-control"
+                                name="porcentaje"
+                                placeholder="0.00"
+                                min="0"
+                                max="1"
+                                step="any"
+                                required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                                type="file"
+                                accept="image/*"
+                                class="form-control black-text form-control"
+                                id="form_file2"
+                                name="link_web"
+                                required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_fecha_inicio">Fecha Inicio</label>
+                        <input
+                                type="date"
+                                id="form_fecha_inicio"
+                                class="black-text form-control"
+                                name="fecha_inicio"
+                                required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="form_fecha_fin">Fecha Fin</label>
+                        <input
+                                type="date"
+                                id="form_fecha_fin"
+                                class="black-text form-control"
+                                name="fecha_fin"
+                                required
+                        />
+                    </div>
+                    <div class="text-center mt-4">
+                        <button
+                                type="submit"
+                                id="addnewButton"
+                                class="btn waves-effect waves-light btn-rounded"
+                                style="background-color: #52489c"
+                        >
+                            Crear
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

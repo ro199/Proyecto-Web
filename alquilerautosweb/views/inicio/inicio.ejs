@@ -1,0 +1,127 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+
+<!-- Main navigation -->
+<!--Main Layout-->
+<div
+        style="background-image: url(/resources/Portada.svg); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-md-center">
+                    <br><br><br><br>
+                    <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s"
+                        style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;">
+                        ¡Autos a los mejores precio en Quito!</h1>
+                    <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s"
+                        style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;">
+                    <h6 class="mb-3 wow fadeInLeft" data-wow-delay="0.3s"
+                        style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;">Encuentra las mejores
+                        tarifas, desde $30</h6>
+                    <a class="btn btn-outline-white wow fadeInLeft waves-effect waves-light" data-wow-delay="0.3s"
+                       style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;" href="/catalogo">Ver
+                        Catálogo</a>
+                </div>
+                <div class="col-md-6 col-xl-5 mb-4">
+                    <br><br>
+                    <div class="card wow fadeInRight" data-wow-delay="0.3s"
+                         style="visibility: visible; animation-name: fadeInRight; animation-delay: 5s;">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h3 class="white-text font-weight-bold" style="font-size: 1rem;">Alquiler de Autos en Quito</h3>
+                                <hr class="hr-light">
+                            </div>
+                            <div class="md-form">
+                                <i class="fas fa-map-marker-alt prefix white-text"></i>
+                                <input type="text" id="form1" class="white-text form-control">
+                                <label for="form1">Lugar de recogida del auto</label>
+                            </div>
+                            <div class="md-form">
+                                <i class="fas fa-map-marker-alt prefix white-text"></i>
+                                <input type="text" id="form2" class="white-text form-control">
+                                <label for="form2">Lugar de entrega del auto</label>
+                            </div>
+                            <div class="md-form">
+                                <i class="fas fa-calendar-alt prefix white-text"></i>
+                                <input type="text" id="form3" class="white-text form-control" data-provide="datepicker">
+                                <label for="form3">Fecha de Recogida</label>
+                            </div>
+                            <div class="md-form">
+                                <i class="fas fa-calendar-alt prefix white-text"></i>
+                                <input type="text" id="form4" class="white-text form-control" data-provide="datepicker">
+                                <label for="form4">Fecha de Entrega</label>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button class="btn  waves-effect waves-light btn-rounded" style="background-color: #52489C;">Buscar
+                                    Auto
+                                </button>
+                                <hr class="hr-light mb-3 mt-4">
+                                <div class="inline-ul text-center d-flex justify-content-center">
+                                    <a class="p-2 m-2 tw-ic">
+                                        <i class="fab fa-twitter white-text"></i>
+                                    </a>
+                                    <a class="p-2 m-2 li-ic">
+                                        <i class="fab fa-facebook white-text"> </i>
+                                    </a>
+                                    <a class="p-2 m-2 ins-ic">
+                                        <i class="fab fa-instagram white-text"> </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../compartido/footer/footer-component') %>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

@@ -1,0 +1,178 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+
+<div class="container-fluid mt-lg-5">
+    <div class="row mb-2">
+        <div class="col-md">
+            <!--Auto-->
+            <div class="card-header bg-transparent">
+                <img class="img-fluid" src="/uploads/<%= auto.source%>" />
+            </div>
+            <div class="card-body text-center">
+                <h4 class="card-title font-weight-bold"><%= auto.nombre%></h4>
+                <p class="card-text"><%= auto.precio%>$ / por día</p>
+            </div>
+        </div>
+        <div class="col-md-8 border">
+            <div class="card-body">
+                <form action="/rentar-auto/<%= auto.id_autos%>" method="post">
+                    <h3 class="black-text font-weight-bold" style="font-size: 1rem">
+                        Ingrese lugares y fechas
+                    </h3>
+                    <div class="md-form">
+                        <i class="fas fa-map-marker-alt prefix black-text"></i>
+                        <input
+                                type="text"
+                                id="form_lugar_recogida"
+                                class="black-text form-control"
+                                name="lugar_recogida"
+                                required
+                        />
+                        <label for="form_lugar_recogida">Lugar de recogida del auto</label>
+
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-map-marker-alt prefix black-text"></i>
+                        <input
+                                type="text"
+                                id="form_lugar_entrega"
+                                class="black-text form-control"
+                                name="lugar_entrega"
+                                required
+                        />
+                        <label for="form_lugar_entrega">Lugar de entrega del auto</label>
+
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-calendar-alt prefix black-text"></i>
+                        <input
+                                type="date"
+                                id="form_fecha_recogida"
+                                class="black-text form-control"
+                                name="fecha_recogida"
+                                required
+                        />
+                        <label for="form_fecha_recogida">Fecha de Recogida</label>
+
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-calendar-alt prefix black-text"></i>
+                        <input
+                                type="date"
+                                id="form_fecha_entrega"
+                                class="black-text form-control"
+                                name="fecha_entrega"
+                                required
+                        />
+                        <label for="form_fecha_entrega">Fecha de Entrega</label>
+
+                    </div>
+                    <!--Pago-->
+                    <h3 class="black-text font-weight-bold" style="font-size: 1rem">
+                        Seleccione un Método de Pago
+                    </h3>
+                    <div class="form-check">
+                        <input
+                                class="form-check-input"
+                                type="radio"
+                                id="exampleRadios1"
+                                value="Tarjeta de Crédito"
+                                checked
+                                name="metodo_pago"
+                        />
+                        <label class="form-check-label" for="exampleRadios1"
+                        ><i class="fab fa-cc-visa prefix black-text"></i>
+                            Tarjeta de Crédito
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input
+                                class="form-check-input"
+                                type="radio"
+                                id="exampleRadios2"
+                                value="Transferencia Bancaria"
+                                name="metodo_pago"
+
+                        />
+
+                        <label class="form-check-label" for="exampleRadios2"
+                        ><i class="fas fa-comments-dollar prefix black-text"></i>
+                            Transferencia Bancaria
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input
+                                class="form-check-input"
+                                type="radio"
+                                id="exampleRadios3"
+                                value="PayPal"
+                                name="metodo_pago"
+                        />
+                        <label class="form-check-label" for="exampleRadios3"
+                        ><i class="fab fa-paypal prefix black-text"></i>
+                            PayPal
+                        </label>
+
+                    </div>
+                    <div class="text-center mt-4">
+                        <button
+                                id="rentCarButton"
+                                class="btn waves-effect waves-light btn-rounded"
+                                style="background-color: #52489c"
+                                type="submit"
+                        >
+                            Alquilar Auto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

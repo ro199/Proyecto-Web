@@ -1,0 +1,141 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<% const esAdministrador = roles.some((rol) => rol === 'Administrador')%>
+<% const esCliente = roles.some((rol) => rol === 'Cliente') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-color: #52489C">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="/inicio">
+            <strong>LA FLOTA</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
+                aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+
+            <%- include('../compartido/menu/menu-component') %>
+
+            <% if(esAdministrador){ %>
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/administrador/perfil" >Cuenta</a>
+                </div>
+
+                <div class="md-form my-0" >
+                    <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                </div>
+            <% } else { %>
+                <% if(esCliente){ %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/perfil" >Cuenta</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/logout">Salir</a>
+                    </div>
+                <% } else { %>
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/login" >Iniciar Sesión</a>
+                    </div>
+
+                    <div class="md-form my-0" >
+                        <a class="btn btn-outline-white mr-sm-2 btn-rounded" href="/registro">Registrarse</a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</nav>
+<br><br><br>
+<main>
+    <div class="container-fluid mt-lg-5">
+        <div class="row">
+            <%- include('../cliente/cliente') %>
+            <div class="col-md-9 tab-content">
+                <div class="tab-pane fade in show active" role="tabpanel">
+                    <div class="container-fluid">
+                        <div class="modal-content">
+                            <div class="card-body">
+                                <!--Header-->
+                                <div class="text-center">
+                                    <h3 class="black-text font-weight-bold" style="font-size: 1rem">
+                                        Valoración
+                                    </h3>
+                                    <hr class="hr-light" />
+                                </div>
+                                <!--Body-->
+                                <div class="container text-center">
+                                    <form
+                                            action="/comentarios/<%= idAuto %>"
+                                            method="post"
+                                    >
+                                        <div class="rating">
+                                            <input
+                                                    type="radio"
+                                                    value="5"
+                                                    id="5"
+                                                    name="numero_estrellas"
+                                            />
+                                            <label for="5">☆</label>
+                                            <input
+                                                    type="radio"
+                                                    value="4"
+                                                    id="4"
+                                                    name="numero_estrellas"
+                                            />
+                                            <label for="4">☆</label>
+                                            <input
+                                                    type="radio"
+                                                    value="3"
+                                                    id="3"
+                                                    name="numero_estrellas"
+                                            />
+                                            <label for="3">☆</label>
+                                            <input
+                                                    type="radio"
+                                                    value="2"
+                                                    id="2"
+                                                    name="numero_estrellas"
+                                            />
+                                            <label for="2">☆</label>
+                                            <input
+                                                    type="radio"
+                                                    value="1"
+                                                    id="1"
+                                                    name="numero_estrellas"
+                                            />
+                                            <label for="1">☆</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comentaryText">Ingresa un comentario</label>
+                                            <textarea
+                                                    id="comentaryText"
+                                                    class="form-control rounded-0"
+                                                    rows="3"
+                                                    name="comentario"
+                                                    required
+                                            ></textarea>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <button
+                                                    id="paymentButton"
+                                                    class="btn waves-effect waves-light btn-rounded"
+                                                    style="background-color: #52489c"
+                                                    type="submit"
+                                            >
+                                                Valorar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <br />
+                                <!--Header-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
